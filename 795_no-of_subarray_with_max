@@ -1,0 +1,16 @@
+lass Solution {
+    public int numSubarrayBoundedMax(int[] nums, int left, int right) {
+         int j=0,i=0,ans=0,emp=0;
+        for(i=0;i<nums.length;i++){
+            if(nums[i]>=left && nums[i]<=right){
+                emp=i-j+1;
+            }
+            if(nums[i]>right){
+                emp=0;
+                j=i+1;
+            }
+            ans=ans+emp;
+        }
+        return ans;
+    }
+}
