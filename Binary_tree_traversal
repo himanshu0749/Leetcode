@@ -1,0 +1,15 @@
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> newlist=new ArrayList<>();
+        if(root==null) return newlist;
+       
+        return func(root,newlist);
+        
+    }
+    public List<Integer> func(TreeNode root,List<Integer>newlist){
+        if(root.left!=null) func(root.left,newlist);
+        newlist.add(root.val);
+        if(root.right!=null) func(root.right,newlist);
+        return newlist;
+    }
+}
