@@ -1,0 +1,19 @@
+class Solution {
+    public int trap(int[] height) {
+        int n=height.length;
+        int[] rt_greatest=new int [n];
+        int rt_max=height[n-1];
+        for(int i=n-1;i>=0;i--){
+            if(rt_max<height[i]) rt_max=height[i];
+            rt_greatest[i]=rt_max;
+        }
+        int left_max=height[0];
+        int water=0;
+        for(int i=0;i<n;i++){
+            if(left_max<height[i]) left_max=height[i];
+            int trap=Math.min(left_max,rt_greatest[i])-height[i];
+            water+=Math.max(0,trap);
+        }
+        return water;
+    }
+}
