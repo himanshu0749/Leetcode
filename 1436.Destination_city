@@ -1,0 +1,12 @@
+class Solution {
+    public String destCity(List<List<String>> paths) {
+        Set<String> s=new HashSet<>();
+        for(var i:paths) s.add(i.get(0));
+        for(var j:paths){
+            if(!s.contains(j.get(1))){
+                return j.get(1);
+            }
+        }
+        return "";
+    }
+}
