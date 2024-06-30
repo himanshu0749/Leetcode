@@ -1,0 +1,42 @@
+class Solution {
+     public int maxHeightOfTriangle(int red, int blue) {
+        int left=1;
+        int right=1;
+        while(right*(right+1)/2<=red+blue){
+            right *= 2;
+        }
+
+        int count = 0;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (ctriangle(mid, red, blue)) {
+                count = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return count;
+    }
+
+    private boolean ctriangle(int height, int red, int blue) {
+        int totalBalls = height * (height + 1) / 2;
+        if (totalBalls > red + blue) {
+            return false;
+        }
+
+        int redNeeded = 0;
+        int blueNeeded = 0;
+
+        for (int i = 1; i <= height; i++) {
+            if (i % 2 == 1) {
+                redNeeded += i;
+            } else {
+                blueNeeded += i;
+            }
+        }
+
+        return (redNeeded <= red && blueNeeded <= blue) || (blueNeeded <= red && redNeeded <= blue);
+    }
+}
