@@ -1,0 +1,25 @@
+class Solution {
+    public int compress(char[] chars) {
+        int n=chars.length;
+        char prevchar=chars[0];
+        StringBuilder str=new StringBuilder();
+        int c=1;
+        for(int i=1;i<n;i++){
+            char currchar=chars[i];
+            if(prevchar==currchar){
+                c++;
+            }else{
+                str.append(prevchar);
+                if(c>1) str.append(c);
+                prevchar=currchar;
+                c=1;
+            }
+        }
+        str.append(prevchar);
+        if(c > 1) str.append(c);
+        for(int i=0; i<str.length(); i++){
+            chars[i] = str.charAt(i);
+        }
+        return str.length();
+    }
+}
