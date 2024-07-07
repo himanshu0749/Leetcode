@@ -1,0 +1,18 @@
+class Solution {
+    public List<String> validStrings(int n) {
+        List<String> result = new ArrayList<>();
+        generateStrings(result, "", n);
+        return result;
+    }
+
+    private void generateStrings(List<String> result, String current, int n) {
+        if (current.length() == n) {
+            result.add(current);
+            return;
+        }
+        generateStrings(result, current + "1", n);
+        if (current.length() == 0 || current.charAt(current.length() - 1) != '0') {
+            generateStrings(result, current + "0", n);
+        }
+    }
+}
