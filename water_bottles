@@ -1,0 +1,13 @@
+class Solution {
+    public int numWaterBottles(int n, int m) {
+        int t=0,temp=0;
+        while(n>0){
+            t=t+n;
+            temp=temp+n;
+            n=temp/m;
+            temp=temp%m;
+
+        }
+        return t;
+    }
+}
