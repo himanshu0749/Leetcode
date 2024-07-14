@@ -1,0 +1,38 @@
+class Solution {
+    public String countOfAtoms(String formula) {
+        int n=formula.length();
+        Stack<Map<String, Integer>> stack=new Stack<>();
+        stack.push(new HashMap<>());
+        for(int i=0;i<n;){
+            if(formula.charAt(i)=='('){
+                stack.push(new HashMap<>());
+                i++;
+            }else if(formula.charAt(i)==')'){
+                Map<String, Integer>newmp=stack.pop();
+                int str=++i,add_val=1;
+                while(i<n && Character.isDigit(formula.charAt(i))) i++;
+                if(i>str) add_val=Integer.parseInt(formula.substring(str,i));
+                for(String c:newmp.keySet()){
+                    stack.peek().put(c,stack.peek().getOrDefault(c,0)+newmp.get(c)*add_val);
+                }
+            }else{
+                int str=i++;
+                while(i<n && Character.isLowerCase(formula.charAt(i))) i++;
+                String na=formula.substring(str,i);
+                str=i;
+                while(i<n && Character.isDigit(formula.charAt(i))) i++;
+                int add_val=i>str?Integer.parseInt(formula.substring(str,i)):1;
+                stack.peek().put(na,stack.peek().getOrDefault(na,0)+add_val);
+            }
+        }
+        Map<String,Integer>mp=stack.pop();
+        TreeMap<String,Integer>sort_mp=new TreeMap<>(mp);
+        StringBuilder new_sub=new StringBuilder();
+        for(String name:sort_mp.keySet()){
+            new_sub.append(name);
+            int count=sort_mp.get(name);
+            if(count>1) new_sub.append(count);
+        }
+        return new_sub.toString();
+    }
+}
