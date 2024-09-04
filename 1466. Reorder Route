@@ -1,0 +1,31 @@
+class Solution {
+    public int minReorder(int n, int[][] connections) {
+        List<int[]>[] adj = new ArrayList[n];
+        for (int i = 0; i < n; i++) {
+            adj[i] = new ArrayList<>();
+        }
+
+        for (int[] conn : connections) {
+            adj[conn[0]].add(new int[] {conn[1], 1}); // original direction
+            adj[conn[1]].add(new int[] {conn[0], 0}); // reverse direction
+        }
+
+        return dfs(0, adj, new int[n]);
+    }
+
+    private int dfs(int city, List<int[]>[] adj, int[] visit) {
+        visit[city] = 1;
+        int c = 0;
+
+        for (int[] num : adj[city]) {
+            int next = num[0];
+            int isOriginalDirection = num[1];
+            if (visit[next]==0) {
+                c+= isOriginalDirection;
+                c+= dfs(next, adj, visit);
+            }
+        }
+
+        return c;
+    }
+}
