@@ -1,0 +1,25 @@
+class Solution {
+    public int robotSim(int[] commands, int[][] obstacles) {
+        int x=0,y=0,d=0,maxdis=0;
+        int[][] dir={{0,1},{1,0},{0,-1},{-1,0}};
+        Set<String>obs_set=new HashSet<>();
+        for(int[] obs:obstacles) obs_set.add(obs[0]+","+obs[1]);
+        for(int i:commands){
+            if(i==-1) d=(d+1)%4;
+            else if(i==-2){
+                d=(d+3)%4;
+            }
+            else{
+                for(int j=0;j<i;j++){
+                    int nx=x+dir[d][0];
+                    int ny=y+dir[d][1];
+                    if(obs_set.contains(nx+","+ny)) break;
+                    x=nx;
+                    y=ny;
+                    maxdis=Math.max(maxdis,x*x+y*y);
+                }
+            }
+        }
+        return maxdis;
+    }
+}
