@@ -1,0 +1,20 @@
+class Solution {
+    public int[] missingRolls(int[] rolls, int mean, int n) {
+        int sum=0,m=rolls.length;
+        for(int i:rolls) sum+=i;
+        int mis_value=(mean*(m+n))-sum;
+        if(mis_value<n || mis_value>(6*n)) return new int[0];
+        int[] arr=new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = 1;
+            mis_value-=1;
+        }
+        for (int i = 0; i < n; i++) {
+            int add = Math.min(5, mis_value);
+            arr[i] += add;
+            mis_value -= add;
+            if (mis_value == 0) break;
+        }
+        return arr;
+    }
+}
